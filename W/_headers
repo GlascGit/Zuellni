@@ -1,0 +1,11 @@
+# _headers
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Robots-Tag: index, follow
+
+*.css
+  Cache-Control: no-cache, no-store, must-revalidate
+  Content-Type: text/css
+
+*.js
+  Cache-Control: no-cache, no-store, must-revalidate
