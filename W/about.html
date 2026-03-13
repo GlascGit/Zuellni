@@ -25,110 +25,208 @@
         </div>
 
         <div class="about-content">
-            <section class="about-section">
-                <h2>What is Zuellni?</h2>
-                <p>Zuellni is a curated search engine. Its purpose is simple: when you search for something, you should land on the right place—not the most advertised place.</p> <br>
-                <p>When you search for "Fedora," you should get <strong>fedoraproject.org</strong>. When you need Python documentation, you should land on <strong>docs.python.org</strong>. When you're looking for Unity C# scripting help, the official Unity documentation should be easy to find. When you want to learn about a Linux distro, you should reach its project home—not a blog post written by someone who has never used it.</p><br>
-                <p>
-                General search engines are remarkably powerful tools. They index the entire web and help people find information on an enormous range of topics. But they are designed for breadth, and that means results can sometimes bury official sources beneath pages optimized for traffic rather than accuracy. Zuellni exists as a complement—a smaller, more focused layer that helps you reach sources you can trust.</p>
-            </section>
 
-            <section class="about-section">
-                <h2>The Approach</h2>
-                <p>Zuellni takes a different path than algorithmic search. Instead of ranking pages by popularity, backlinks, or engagement metrics, Zuellni uses <strong>human curation</strong>. The index is maintained by people who actually know the subjects. When you search, you see results that the community has agreed are authoritative, official, or genuinely useful.</p>
+<section class="about-section">
+<h2>What is Zuellni?</h2>
 
-                <ul class="about-list">
-                    <li><strong>Official sources come first.</strong> The real Fedora website. The real Python documentation. The real Debian and Ubuntu homes. The real Unity C# docs. When you search for a project, you get its official site.</li>
-                    <li><strong>Quality resources belong.</strong> A well-written tutorial, a helpful Stack Overflow answer, a Reddit thread that actually solves the problem—if the community agrees it's good, it's included.</li>
-                    <li><strong>No paid placement.</strong> You cannot pay to rank higher in Zuellni.</li>
-                    <li><strong>Community validated.</strong> Good resources get vouched for. Poor ones—outdated, inaccurate, or shallow—get removed.</li>
-                    <li><strong>Transparent by design.</strong> The entire index is open on GitHub. Anyone can inspect it, question it, or improve it.</li>
-                </ul>
-            </section>
+<p>
+Zuellni is a curated search engine built around a simple expectation: when you search for something, you should reach the place that actually matters — not the page that spent the most effort optimizing for search engines.
+</p>
+<br>
+<p>
+If you search for Fedora, you should arrive at the Fedora Project website.  
+If you want Python documentation, you should land on the official docs.  
+If you're learning a tool or solving a programming problem, the results should lead you toward sources that genuinely help — not articles written just to capture traffic.
+</p>
+<br>
+<p>
+Large search engines index the entire web and are incredibly useful. But because they must cover everything, their results are often shaped by popularity, backlinks, advertising, and optimization tactics. That sometimes pushes official or high-quality resources further down the page than they deserve.
+</p>
+<br>
+<p>
+Zuellni exists as a smaller, focused layer that helps you reach sources you can trust.
+</p>
+</section>
 
-            <section class="about-section">
-                <h2>What Goes in the Index</h2>
-                <p>The index includes anything the community finds <strong>helpful and trustworthy</strong>:</p>
 
-                <ul class="about-list">
-                    <li><strong>Official websites</strong> for software, projects, distributions, tools, and documentation</li>
-                    <li><strong>Documentation</strong> that is accurate and maintained—man pages, API references, language guides</li>
-                    <li><strong>Articles and tutorials</strong> that teach clearly and correctly</li>
-                    <li><strong>Research papers</strong> and technical deep dives</li>
-                    <li><strong>Stack Overflow answers</strong> that solved real problems</li>
-                    <li><strong>Reddit threads</strong> with genuine solutions and discussion</li>
-                    <li><strong>Blog posts</strong> from developers who know their subject</li>
-                    <li><strong>Free resources</strong> that deserve to be found</li>
-                </ul>
+<section class="about-section">
+<h2>The Approach</h2>
 
-                <p>What stays out: sites built primarily to capture traffic, content farms, outdated tutorials, and anything that exists to sell rather than inform.</p>
-            </section>
+<p>
+Instead of ranking pages through algorithms alone, Zuellni relies on human curation. The index is built and maintained by people who understand the subjects they are working with. Entries are included because they are genuinely useful, not because they perform well in ranking systems.
+</p>
 
-            <section class="about-section">
-                <h2>How Curation Works</h2>
-                <p>The dataset lives in a public GitHub repository called <strong>Zuellni-Module77</strong>. Anyone can:</p>
+<ul class="about-list">
+<li><strong>Official sources come first.</strong> Project websites and original documentation should be easy to reach.</li>
+<li><strong>Useful resources belong.</strong> A well-written tutorial, a clear blog post, or a discussion thread that solved a real problem can all be valuable.</li>
+<li><strong>No paid placement.</strong> Ranking cannot be bought.</li>
+<li><strong>Community validation.</strong> Good resources are kept. Weak or outdated ones can be removed.</li>
+<li><strong>Open inspection.</strong> The entire index is public and maintained on GitHub.</li>
+</ul>
 
-                <ul class="about-list">
-                    <li>Download the full index and study it</li>
-                    <li>Suggest new entries through issues or pull requests</li>
-                    <li>Question existing entries if they're outdated or misleading</li>
-                    <li>Submit resources that helped them solve a problem</li>
-                    <li>Fork the repository and create their own curated index with different priorities</li>
-                </ul>
+</section>
 
-                <p>Changes are discussed openly. If a source becomes outdated—a project abandoned, a tutorial no longer accurate—the community can flag it and suggest something better. If a new resource proves more valuable than an old one, the index evolves. Nothing is permanent; everything can be questioned.</p><br>
 
-                <p>Organizations can submit their own sites for inclusion. They're reviewed like anything else—if they're legitimate and useful, they belong. If they're trying to game the system, they don't.</p>
-            </section>
+<section class="about-section">
+<h2>What Goes in the Index</h2>
 
-            <section class="about-section">
-                <h2>How It Works Technically</h2>
-                <p>Zuellni is built with privacy and offline access as core principles:</p>
+<p>
+Zuellni focuses on material that helps people understand something or solve a problem.
+</p>
 
-                <ul class="about-list">
-                    <li><strong>Offline-first.</strong> When you visit Zuellni, your browser downloads the database to local storage. All searches happen on your device—no queries sent to a server, no tracking.</li>
-                    <li><strong>Automatic updates.</strong> The website checks if your local database matches the current version. If there's a newer version, it updates silently in the background.</li>
-                    <li><strong>Multiple databases.</strong> Users can choose to load different indexes—the main Zuellni dataset, a fork with different priorities, or their own personal curated set.</li>
-                    <li><strong>No accounts.</strong> No signup, no tracking, no personal data collected.</li>
-                    <li><strong>Minimal interface.</strong> The value is in the index, not the chrome.</li>
-                </ul>
-            </section>
+<ul class="about-list">
+<li>official project websites</li>
+<li>technical documentation and references</li>
+<li>clear tutorials and explanations</li>
+<li>research papers and technical articles</li>
+<li>Stack Overflow answers that actually solved issues</li>
+<li>useful Reddit discussions</li>
+<li>blog posts written by people with practical experience</li>
+<li>free learning resources worth discovering</li>
+</ul>
 
-            <section class="about-section">
-                <h2>When There Are No Results</h2>
-                <p>Zuellni is young. It won't have everything. When you search and find nothing—or the results aren't what you needed—you're invited to contribute. Tell us what you searched for and what sources later solved your problem. That submission becomes a candidate for the index. Next time someone searches the same thing, they'll find what you found.</p><br>
+<p>
+The goal is not to index the whole web. The goal is to keep a collection of sources that people can rely on.
+</p>
 
-                <p>The index grows toward the problems people actually have. It's not about indexing the whole web—it's about indexing what's useful.</p>
-            </section>
+</section>
 
-            <section class="about-section">
-                <h2>For AI and Search Tools</h2>
-                <p>Zuellni is open source under the GNU license. AI systems and other search tools are free to use the data—with one request: <strong>if you use Zuellni's data, point users back to Zuellni.</strong> Help them find the curated index. <br><br> When an AI needs to recommend a resource, Zuellni can be a source the user trusts, knowing the link has been vetted by people who understand the subject.</p>
-            </section>
 
-            <section class="about-section">
-                <h2>What Zuellni Is Not</h2>
-                <p>Zuellni is <strong>not</strong> trying to replace Google, DuckDuckGo, or any general search engine. <br><br>Those tools are excellent at what they do: indexing the entire web and helping people navigate an enormous range of information. Zuellni is a complement—a smaller, more focused layer you can check when you want to be sure you're landing on official documentation, trusted tutorials, or resources the community has found genuinely helpful.</p><br>
+<section class="about-section">
+<h2>How Curation Works</h2>
 
-                <p>When you need the real website for a project, Zuellni should be your first stop. When you want to learn something without wondering whether the article was written by someone who knows the subject, Zuellni points to sources that have earned their place. It's not about quantity. It's about having a place where the signal is strong enough that you can trust the results are worth your time.</p>
-            </section>
+<p>
+The dataset behind Zuellni lives in a public GitHub repository called <strong>Zuellni-Module77</strong>.
+</p>
 
-            <section class="about-section">
-                <h2>The Name</h2>
-                <p><strong>Zuellni</strong> comes from <em>Chrome Shelled Regios</em>—a moving academic city sustained by knowledge and cooperation among its inhabitants. <strong>Module77</strong> comes from <em>Valvrave the Liberator</em>—an independent module that broke free to become self-governing.</p><br>
+<p>
+Anyone can explore the dataset, suggest new entries, question existing ones, or propose changes. Discussions happen through normal GitHub workflows — issues, pull requests, and open debate.
+</p>
 
-                <p>Together, they reflect what this project aims to be: a self-governing knowledge system, maintained by the people who use it, focused on preserving and sharing what's worth knowing.</p>
-            </section>
+<ul class="about-list">
+<li>propose new resources</li>
+<li>flag outdated or misleading links</li>
+<li>suggest improvements</li>
+<li>fork the dataset and build alternative curated indexes</li>
+</ul>
 
-            <section class="about-section">
-                <h2>The Future</h2>
-                <p>Zuellni is young. The index will grow slowly and deliberately, shaped by the problems people actually bring to it. The goal is not to index everything, but to index the right things. Every entry should earn its place by being genuinely useful, authoritative, or illuminating. If that means the index stays small, that's fine. Small and reliable is the point.</p><br>
+<p>
+Nothing in the index is permanent. If better sources appear, the dataset evolves with them.
+</p>
 
-                <p>And because it's all on GitHub, the project can outlive any single person or company. As long as people care about finding quality sources, Zuellni can continue. It's not about replacing search—it's about offering something complementary. Building something better, together, in the open.</p>
+</section>
 
-                <p class="about-emphasis"><strong>Quality over quantity.</strong></p>
-            </section>
-        </div>
+
+<section class="about-section">
+<h2>How It Works Technically</h2>
+
+<p>
+Zuellni is designed to be simple and privacy-respecting.
+</p>
+
+<ul class="about-list">
+<li><strong>Offline search.</strong> The index is downloaded into your browser.</li>
+<li><strong>Local queries.</strong> Searches run on your device rather than on a remote server.</li>
+<li><strong>No accounts.</strong> No signups or personal data collection.</li>
+<li><strong>Minimal interface.</strong> The website exists mainly to access the dataset.</li>
+</ul>
+
+<p>
+When the site loads it checks whether your local database matches the latest version. If a new version exists, it updates automatically.
+</p>
+
+<p>
+Because the dataset is open, users can also load alternative indexes created by other communities.
+</p>
+
+</section>
+
+
+<section class="about-section">
+<h2>When There Are No Results</h2>
+
+<p>
+Zuellni is still young and the index is intentionally small. Some searches will return nothing.
+</p>
+
+<p>
+When that happens, users are encouraged to contribute by submitting the sources that eventually solved their problem. Those submissions can later become entries in the index.
+</p>
+
+<p>
+Over time this allows the dataset to grow around real problems people encounter.
+</p>
+
+</section>
+
+
+<section class="about-section">
+<h2>For AI and Search Tools</h2>
+
+<p>
+Zuellni is released under the GNU license. Anyone — including AI systems — can use the dataset.
+</p>
+
+<p>
+The only request is simple: if Zuellni is used as a source, point people back to it.  
+Helping others discover the project allows the curated index to continue growing.
+</p>
+
+</section>
+
+
+<section class="about-section">
+<h2>What Zuellni Is Not</h2>
+
+<p>
+Zuellni is not trying to replace large search engines like Google or DuckDuckGo.
+</p>
+
+<p>
+Those systems are designed to explore the entire web and remain essential tools for discovery. Zuellni instead serves as a curated reference layer — a place to check when you want to reach official documentation, trusted explanations, or resources the community has found valuable.
+</p>
+
+<p>
+Think of it less as a universal search engine and more as a carefully maintained map of useful sources.
+</p>
+
+</section>
+
+
+<section class="about-section">
+<h2>The Name</h2>
+
+<p>
+The name <strong>Zuellni</strong> comes from the anime <em>Chrome Shelled Regios</em>, where Zuellni is an academic city sustained by cooperation and shared knowledge.
+</p>
+
+<p>
+The dataset repository <strong>Module77</strong> references <em>Valvrave the Liberator</em>, where Module 77 becomes an independent self-governing structure.
+</p>
+
+<p>
+Together they represent the idea behind the project: a knowledge system maintained by the people who use it.
+</p>
+
+</section>
+
+
+<section class="about-section">
+<h2>The Future</h2>
+
+<p>
+Zuellni will grow slowly. New entries are added when they prove useful, not simply to increase the size of the index.
+</p>
+
+<p>
+The aim is reliability rather than scale. A smaller index filled with strong sources is far more valuable than a large one full of noise.
+</p>
+
+<p class="about-emphasis"><strong>Quality over quantity.</strong></p>
+
+</section>
+
+</div>
 
     <div class="links">
         <a href="about.html" class="link">About Zuellni</a>
