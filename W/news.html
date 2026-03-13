@@ -4,27 +4,30 @@
     <link rel="icon" type="image/x-icon" href="zuellni_fairy_favico.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Zuellni</title>
+    <title>News · Zuellni</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="menu-container">
         <button class="menu-button" id="menuBtn">☰</button>
         <div class="dropdown-menu" id="dropdownMenu">
-            <a href="index.html" class="menu-item active">Home</a>
+            <a href="index.html" class="menu-item">Home</a>
             <a href="about.html" class="menu-item">About</a>
-            <a href="news.html" class="menu-item">News</a>
+            <a href="news.html" class="menu-item active">News</a>
         </div>
     </div>
     <div class="container">
-        <div class="site-title">Zuellni</div>
-        <div class="search-card">
-            <input type="text" class="search-input" id="searchInput" placeholder="ask Zuellni ..." autofocus>
-            <button class="search-button" id="searchBtn">Search</button>
+        <div class="page-header">
+            <h1>News</h1>
+            <p class="header-sub">Updates and announcements</p>
         </div>
-        <div class="results-section" id="resultsArea">
-            <div class="result-stats" id="resultStats"></div>
-            <div id="resultList"></div>
+        <div class="news-grid">
+            <div class="news-card">
+                <div class="news-date">2024-03-15</div>
+                <div class="news-title">Starting Of Zuellni</div>
+                <div class="news-summary">Zuellni idea finally gets real form and is starting.</div>
+            </div>
+            
         </div>
     </div>
     <div class="links">
@@ -34,7 +37,6 @@
         <span class="separator">·</span>
             <a href="https://github.com/GlascGit/Zuellni-Module77" class="link" target="_blank">Module77 GIT</a>
     </div>
-
     <script>
         document.getElementById('menuBtn').addEventListener('click', function() {
             document.getElementById('dropdownMenu').classList.toggle('show');

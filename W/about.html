@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="zuellni_fairy_favico.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>About · Zuellni</title>
+    <meta name="description" content="Zuellni is a curated search engine that prioritizes quality, community-validated sources. Open source, offline-first, and transparent.">
+    <meta name="keywords" content="search engine, curated, community validated, open source, offline search, quality content">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="menu-container">
+        <button class="menu-button" id="menuBtn">☰</button>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="index.html" class="menu-item">Home</a>
+            <a href="about.html" class="menu-item active">About</a>
+            <a href="news.html" class="menu-item">News</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>About Zuellni</h1>
+        </div>
+
+        <div class="about-content">
+            <section class="about-section">
+                <h2>What is Zuellni?</h2>
+                <p>Zuellni is a curated search engine. Its purpose is simple: when you search for something, you should land on the right place—not the most advertised place.</p> <br>
+                <p>When you search for "Fedora," you should get <strong>fedoraproject.org</strong>. When you need Python documentation, you should land on <strong>docs.python.org</strong>. When you're looking for Unity C# scripting help, the official Unity documentation should be easy to find. When you want to learn about a Linux distro, you should reach its project home—not a blog post written by someone who has never used it.</p><br>
+                <p>
+                General search engines are remarkably powerful tools. They index the entire web and help people find information on an enormous range of topics. But they are designed for breadth, and that means results can sometimes bury official sources beneath pages optimized for traffic rather than accuracy. Zuellni exists as a complement—a smaller, more focused layer that helps you reach sources you can trust.</p>
+            </section>
+
+            <section class="about-section">
+                <h2>The Approach</h2>
+                <p>Zuellni takes a different path than algorithmic search. Instead of ranking pages by popularity, backlinks, or engagement metrics, Zuellni uses <strong>human curation</strong>. The index is maintained by people who actually know the subjects. When you search, you see results that the community has agreed are authoritative, official, or genuinely useful.</p>
+
+                <ul class="about-list">
+                    <li><strong>Official sources come first.</strong> The real Fedora website. The real Python documentation. The real Debian and Ubuntu homes. The real Unity C# docs. When you search for a project, you get its official site.</li>
+                    <li><strong>Quality resources belong.</strong> A well-written tutorial, a helpful Stack Overflow answer, a Reddit thread that actually solves the problem—if the community agrees it's good, it's included.</li>
+                    <li><strong>No paid placement.</strong> You cannot pay to rank higher in Zuellni.</li>
+                    <li><strong>Community validated.</strong> Good resources get vouched for. Poor ones—outdated, inaccurate, or shallow—get removed.</li>
+                    <li><strong>Transparent by design.</strong> The entire index is open on GitHub. Anyone can inspect it, question it, or improve it.</li>
+                </ul>
+            </section>
+
+            <section class="about-section">
+                <h2>What Goes in the Index</h2>
+                <p>The index includes anything the community finds <strong>helpful and trustworthy</strong>:</p>
+
+                <ul class="about-list">
+                    <li><strong>Official websites</strong> for software, projects, distributions, tools, and documentation</li>
+                    <li><strong>Documentation</strong> that is accurate and maintained—man pages, API references, language guides</li>
+                    <li><strong>Articles and tutorials</strong> that teach clearly and correctly</li>
+                    <li><strong>Research papers</strong> and technical deep dives</li>
+                    <li><strong>Stack Overflow answers</strong> that solved real problems</li>
+                    <li><strong>Reddit threads</strong> with genuine solutions and discussion</li>
+                    <li><strong>Blog posts</strong> from developers who know their subject</li>
+                    <li><strong>Free resources</strong> that deserve to be found</li>
+                </ul>
+
+                <p>What stays out: sites built primarily to capture traffic, content farms, outdated tutorials, and anything that exists to sell rather than inform.</p>
+            </section>
+
+            <section class="about-section">
+                <h2>How Curation Works</h2>
+                <p>The dataset lives in a public GitHub repository called <strong>Zuellni-Module77</strong>. Anyone can:</p>
+
+                <ul class="about-list">
+                    <li>Download the full index and study it</li>
+                    <li>Suggest new entries through issues or pull requests</li>
+                    <li>Question existing entries if they're outdated or misleading</li>
+                    <li>Submit resources that helped them solve a problem</li>
+                    <li>Fork the repository and create their own curated index with different priorities</li>
+                </ul>
+
+                <p>Changes are discussed openly. If a source becomes outdated—a project abandoned, a tutorial no longer accurate—the community can flag it and suggest something better. If a new resource proves more valuable than an old one, the index evolves. Nothing is permanent; everything can be questioned.</p><br>
+
+                <p>Organizations can submit their own sites for inclusion. They're reviewed like anything else—if they're legitimate and useful, they belong. If they're trying to game the system, they don't.</p>
+            </section>
+
+            <section class="about-section">
+                <h2>How It Works Technically</h2>
+                <p>Zuellni is built with privacy and offline access as core principles:</p>
+
+                <ul class="about-list">
+                    <li><strong>Offline-first.</strong> When you visit Zuellni, your browser downloads the database to local storage. All searches happen on your device—no queries sent to a server, no tracking.</li>
+                    <li><strong>Automatic updates.</strong> The website checks if your local database matches the current version. If there's a newer version, it updates silently in the background.</li>
+                    <li><strong>Multiple databases.</strong> Users can choose to load different indexes—the main Zuellni dataset, a fork with different priorities, or their own personal curated set.</li>
+                    <li><strong>No accounts.</strong> No signup, no tracking, no personal data collected.</li>
+                    <li><strong>Minimal interface.</strong> The value is in the index, not the chrome.</li>
+                </ul>
+            </section>
+
+            <section class="about-section">
+                <h2>When There Are No Results</h2>
+                <p>Zuellni is young. It won't have everything. When you search and find nothing—or the results aren't what you needed—you're invited to contribute. Tell us what you searched for and what sources later solved your problem. That submission becomes a candidate for the index. Next time someone searches the same thing, they'll find what you found.</p><br>
+
+                <p>The index grows toward the problems people actually have. It's not about indexing the whole web—it's about indexing what's useful.</p>
+            </section>
+
+            <section class="about-section">
+                <h2>For AI and Search Tools</h2>
+                <p>Zuellni is open source under the GNU license. AI systems and other search tools are free to use the data—with one request: <strong>if you use Zuellni's data, point users back to Zuellni.</strong> Help them find the curated index. <br><br> When an AI needs to recommend a resource, Zuellni can be a source the user trusts, knowing the link has been vetted by people who understand the subject.</p>
+            </section>
+
+            <section class="about-section">
+                <h2>What Zuellni Is Not</h2>
+                <p>Zuellni is <strong>not</strong> trying to replace Google, DuckDuckGo, or any general search engine. <br><br>Those tools are excellent at what they do: indexing the entire web and helping people navigate an enormous range of information. Zuellni is a complement—a smaller, more focused layer you can check when you want to be sure you're landing on official documentation, trusted tutorials, or resources the community has found genuinely helpful.</p><br>
+
+                <p>When you need the real website for a project, Zuellni should be your first stop. When you want to learn something without wondering whether the article was written by someone who knows the subject, Zuellni points to sources that have earned their place. It's not about quantity. It's about having a place where the signal is strong enough that you can trust the results are worth your time.</p>
+            </section>
+
+            <section class="about-section">
+                <h2>The Name</h2>
+                <p><strong>Zuellni</strong> comes from <em>Chrome Shelled Regios</em>—a moving academic city sustained by knowledge and cooperation among its inhabitants. <strong>Module77</strong> comes from <em>Valvrave the Liberator</em>—an independent module that broke free to become self-governing.</p><br>
+
+                <p>Together, they reflect what this project aims to be: a self-governing knowledge system, maintained by the people who use it, focused on preserving and sharing what's worth knowing.</p>
+            </section>
+
+            <section class="about-section">
+                <h2>The Future</h2>
+                <p>Zuellni is young. The index will grow slowly and deliberately, shaped by the problems people actually bring to it. The goal is not to index everything, but to index the right things. Every entry should earn its place by being genuinely useful, authoritative, or illuminating. If that means the index stays small, that's fine. Small and reliable is the point.</p><br>
+
+                <p>And because it's all on GitHub, the project can outlive any single person or company. As long as people care about finding quality sources, Zuellni can continue. It's not about replacing search—it's about offering something complementary. Building something better, together, in the open.</p>
+
+                <p class="about-emphasis"><strong>Quality over quantity.</strong></p>
+            </section>
+        </div>
+
+    <div class="links">
+        <a href="about.html" class="link">About Zuellni</a>
+        <span class="separator">·</span>
+            <a href="https://github.com/GlascGit/Zuellni" class="link" target="_blank">Zuellni GIT</a>
+        <span class="separator">·</span>
+            <a href="https://github.com/GlascGit/Zuellni-Module77" class="link" target="_blank">Module77 GIT</a>
+    </div>
+    </div>
+
+    <script>
+        document.getElementById('menuBtn').addEventListener('click', function() {
+            document.getElementById('dropdownMenu').classList.toggle('show');
+        });
+
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('.menu-button')) {
+                var dropdowns = document.getElementsByClassName('dropdown-menu');
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
