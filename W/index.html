@@ -22,6 +22,7 @@
             <input type="text" class="search-input" id="searchInput" placeholder="ask Zuellni ..." autofocus>
             <button class="search-button" id="searchBtn">Search</button>
         </div>
+        <div id="dbStatus" class="db-status">DB: initializing</div>
         <div class="results-section" id="resultsArea">
             <div class="result-stats" id="resultStats"></div>
             <div id="resultList"></div>
@@ -30,27 +31,195 @@
     <div class="links">
         <a href="about.html" class="link">About Zuellni</a>
         <span class="separator">·</span>
-            <a href="https://github.com/GlascGit/Zuellni" class="link" target="_blank">Zuellni GIT</a>
+        <a href="https://github.com/GlascGit/Zuellni" class="link" target="_blank">Zuellni GIT</a>
         <span class="separator">·</span>
-            <a href="https://github.com/GlascGit/Zuellni-Module77" class="link" target="_blank">Module77 GIT</a>
+        <a href="https://github.com/GlascGit/Zuellni-Module77" class="link" target="_blank">Module77 GIT</a>
     </div>
 
-    <script>
-        document.getElementById('menuBtn').addEventListener('click', function() {
-            document.getElementById('dropdownMenu').classList.toggle('show');
-        });
+<script>
+const DB_NAME = "ZuellniSearchDB";
+const DB_VERSION = 1;
+const STORE_NAME = "databases";
 
-        window.addEventListener('click', function(event) {
-            if (!event.target.matches('.menu-button')) {
-                var dropdowns = document.getElementsByClassName('dropdown-menu');
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
+let dbInstance = null;
+let loadedDBs = {}; // cache loaded DBs in RAM during search
+
+// Initialize IndexedDB
+function initDB() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => {
+            dbInstance = request.result;
+            resolve();
+        };
+        request.onupgradeneeded = event => {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains(STORE_NAME)) {
+                db.createObjectStore(STORE_NAME, { keyPath: "name" });
+            }
+        };
+    });
+}
+
+// Save JSON file in IndexedDB
+function saveDB(name, data, version) {
+    return new Promise((resolve, reject) => {
+        const tx = dbInstance.transaction(STORE_NAME, "readwrite");
+        const store = tx.objectStore(STORE_NAME);
+        const request = store.put({ name, data, version, saved: new Date().toISOString() });
+        request.onsuccess = () => resolve();
+        request.onerror = () => reject(request.error);
+    });
+}
+
+// Load JSON file from IndexedDB
+function getStoredDB(name) {
+    return new Promise(resolve => {
+        const tx = dbInstance.transaction(STORE_NAME, "readonly");
+        const store = tx.objectStore(STORE_NAME);
+        const request = store.get(name);
+        request.onsuccess = () => resolve(request.result || null);
+        request.onerror = () => resolve(null);
+    });
+}
+
+// Fetch from URL with local caching
+async function loadCachedDB(name, url, version) {
+    const stored = await getStoredDB(name);
+    if (stored && stored.version === version) {
+        return stored.data;
+    }
+
+    document.getElementById("dbStatus").textContent = `DB: downloading ${name}...`;
+    const r = await fetch(url);
+    const data = await r.json();
+    await saveDB(name, data, version);
+    document.getElementById("dbStatus").textContent = "DB: ready";
+    return data;
+}
+
+// Core DBs: keywords and index
+let keywords = {};
+let indexDB = {};
+
+async function loadCore() {
+    keywords = await loadCachedDB(
+        "keywords.json",
+        "https://www.db.zuellni.com/keywords.json",
+        "1.0"
+    );
+
+    indexDB = await loadCachedDB(
+        "index.json",
+        "https://www.db.zuellni.com/index.json",
+        "1.0"
+    );
+}
+
+// Search helpers
+function tokenize(text) {
+    return text.toLowerCase().replace(/[^\w\s]/g, "").split(/\s+/).filter(Boolean);
+}
+
+function tokensToIDs(tokens) {
+    return tokens.map(t => keywords[t]).filter(id => id !== undefined);
+}
+
+function detectTech(ids) {
+    return Object.keys(indexDB).filter(tech => ids.includes(indexDB[tech][0]));
+}
+
+// Load DB for tech and database name, cached locally
+async function loadDB(tech, dbName, dbVersion = "1.0") {
+    const key = `${tech}/${dbName}`;
+    if (loadedDBs[key]) return loadedDBs[key];
+
+    const url = `https://www.db.zuellni.com/${tech}/${dbName}`;
+    const data = await loadCachedDB(key, url, dbVersion);
+    loadedDBs[key] = data; // only keep in RAM during search
+    return data;
+}
+
+// Main search function
+async function search() {
+    const query = document.getElementById("searchInput").value.trim();
+    if (!query) return;
+
+    const tokens = tokenize(query);
+    const ids = tokensToIDs(tokens);
+    const techs = detectTech(ids);
+
+    let results = [];
+    const maxResults = 10;
+
+    if (techs.length > 0 && ids.length === techs.length) {
+        // Only techs in query: take first DBs in order under each tech
+        for (const tech of techs) {
+            const dbs = indexDB[tech][1];
+            for (const db of dbs) {
+                const dbName = db[0];
+                const dbData = await loadDB(tech, dbName);
+
+                for (const entry of dbData.data) {
+                    results.push(entry);
+                    if (results.length >= maxResults) break;
+                }
+
+                if (results.length >= maxResults) break;
+            }
+        }
+    } else {
+        // Regular search: match keywords in DBs
+        outer: for (const tech of Object.keys(indexDB)) {
+            const dbs = indexDB[tech][1];
+            for (const db of dbs) {
+                const dbName = db[0];
+                const dbKeywords = db[1];
+
+                if (!ids.some(id => dbKeywords.includes(id))) continue;
+
+                const dbData = await loadDB(tech, dbName);
+                for (const entry of dbData.data) {
+                    if (results.includes(entry)) continue;
+                    if (ids.some(id => entry.ids.includes(id))) {
+                        results.push(entry);
+                        if (results.length >= maxResults) break outer;
                     }
                 }
             }
-        });
-    </script>
+        }
+    }
+
+    showResults(results);
+}
+
+// Display results
+function showResults(results) {
+    const list = document.getElementById("resultList");
+    const stats = document.getElementById("resultStats");
+    if (!results.length) {
+        stats.textContent = "No results";
+        list.innerHTML = "";
+        return;
+    }
+    stats.textContent = `${results.length} result(s)`;
+    list.innerHTML = results.map(r => `
+        <div class="result-item">
+            <a href="${r.link}" target="_blank">${r.title || r.link}</a>
+            <div>${r.description}</div>
+        </div>
+    `).join("");
+}
+
+// Events
+document.getElementById("searchBtn").addEventListener("click", search);
+document.getElementById("searchInput").addEventListener("keypress", e => {
+    if (e.key === "Enter") search();
+});
+
+// Init
+initDB().then(loadCore);
+</script>
 </body>
 </html>
