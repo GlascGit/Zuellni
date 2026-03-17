@@ -57,42 +57,36 @@
         });
     }
 
-    async function loadCachedDB(name, url, version) {
-        const stored = await getStoredDB(name);
-
-        if (stored && stored.version === version) {
-            return stored.data;
-        }
-
-        document.getElementById("dbStatus").textContent = `DB: downloading ${name}`;
-
+    async function fetchJSON(url) {
         const r = await fetch(url);
-        const data = await r.json();
-
-        await saveDB(name, data, version);
-
-        document.getElementById("dbStatus").textContent = "DB: ready";
-
-        return data;
+        return await r.json();
     }
 
-    // ---------------- CORE ----------------
+    // ---------------- VERSION SYSTEM ----------------
 
-    async function loadCore() {
-        keywords = await loadCachedDB(
-            "keywords.json",
-            "https://www.db.zuellni.com/keywords.json",
-            "1.0"
-        );
+    async function checkCoreUpdate() {
+        const remoteVersion = await fetchJSON("https://www.db.zuellni.com/version.json");
+        const stored = await getStoredDB("core");
 
-        indexDB = await loadCachedDB(
-            "index.json",
-            "https://www.db.zuellni.com/index.json",
-            "1.0"
-        );
+        if (!stored || stored.version !== remoteVersion.core) {
+            // download fresh core files
+            keywords = await fetchJSON("https://www.db.zuellni.com/keywords.json");
+            indexDB = await fetchJSON("https://www.db.zuellni.com/index.json");
+
+            await saveDB("keywords.json", keywords, remoteVersion.core);
+            await saveDB("index.json", indexDB, remoteVersion.core);
+            await saveDB("core", {}, remoteVersion.core);
+        } else {
+            // use cached
+            const k = await getStoredDB("keywords.json");
+            const i = await getStoredDB("index.json");
+
+            keywords = k.data;
+            indexDB = i.data;
+        }
     }
 
-    // ---------------- SEARCH ----------------
+    // ---------------- SEARCH HELPERS ----------------
 
     function tokenize(text) {
         return text.toLowerCase().replace(/[^\w\s]/g, "").split(/\s+/).filter(Boolean);
@@ -106,15 +100,35 @@
         return Object.keys(indexDB).filter(tech => ids.includes(indexDB[tech][0]));
     }
 
-    async function loadDB(tech, dbName) {
+    // ---------------- DB LOADER ----------------
+
+    async function loadDB(tech, dbEntry) {
+        const dbName = dbEntry[0];
+        const dbVersion = dbEntry[2] || "1.0";
+
         const key = `${tech}/${dbName}`;
 
         if (loadedDBs[key]) return loadedDBs[key];
 
+        const stored = await getStoredDB(key);
+
+        if (stored && stored.version === dbVersion) {
+            loadedDBs[key] = stored.data;
+            return stored.data;
+        }
+
         const url = `https://www.db.zuellni.com/${tech}/${dbName}`;
-        const data = await loadCachedDB(key, url, "1.0");
+
+        document.getElementById("dbStatus").textContent = `DB: downloading ${dbName}`;
+
+        const data = await fetchJSON(url);
+
+        await saveDB(key, data, dbVersion);
 
         loadedDBs[key] = data;
+
+        document.getElementById("dbStatus").textContent = "DB: ready";
+
         return data;
     }
 
@@ -139,13 +153,13 @@
 
             const dbs = indexDB[tech][1];
 
-            for (const db of dbs) {
-                const dbName = db[0];
-                const dbKeywords = db[1];
+            for (const dbEntry of dbs) {
+
+                const dbKeywords = dbEntry[1];
 
                 if (!isTechOnly && !ids.some(id => dbKeywords.includes(id))) continue;
 
-                const dbData = await loadDB(tech, dbName);
+                const dbData = await loadDB(tech, dbEntry);
 
                 for (const entry of dbData.data) {
 
@@ -154,7 +168,6 @@
                     let matchCount;
 
                     if (isTechOnly) {
-                        // force all entries as valid matches
                         matchCount = 1;
                     } else {
                         matchCount = ids.filter(id => entry.ids.includes(id)).length;
@@ -206,20 +219,16 @@
 
         list.innerHTML = pageResults.map(r => `
         <div class="result-item">
-
-        <a href="${r.link}" target="_blank" style="display:flex; align-items:center; gap:8px;">
+        <a href="${r.link}" target="_blank" style="display:flex; gap:8px;">
         ${r.icon ? `<img src="${r.icon}" style="width:16px;height:16px;">` : ""}
         ${r.title || r.name || r.link}
         </a>
-
         <div>${r.description || ""}</div>
-
         <div class="result-link">
         <a href="${r.link}" target="_blank">${r.link}</a>
         </div>
 
         ${r.date ? `<div class="result-category">${r.date}</div>` : ""}
-
         </div>
         `).join("");
 
@@ -230,19 +239,6 @@
     }
 
     // ---------------- EVENTS ----------------
-
-    document.getElementById('menuBtn').addEventListener('click', () => {
-        document.getElementById('dropdownMenu').classList.toggle('show');
-    });
-
-    window.addEventListener('click', function(event) {
-        if (!event.target.matches('.menu-button')) {
-            const dropdowns = document.getElementsByClassName('dropdown-menu');
-            for (let i = 0; i < dropdowns.length; i++) {
-                dropdowns[i].classList.remove('show');
-            }
-        }
-    });
 
     document.getElementById("searchBtn").addEventListener("click", search);
 
@@ -266,6 +262,6 @@
 
         // ---------------- INIT ----------------
 
-        initDB().then(loadCore);
+        initDB().then(checkCoreUpdate);
 
 })();
